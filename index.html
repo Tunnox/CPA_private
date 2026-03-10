@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Christ's Perfection Academy - Admission Portal</title>
+
+<link rel="icon" type="image/jpeg"
+href="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260304_153523801_iOS.jpg">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f8f9fb;
+color:#1c2b4a;
+line-height:1.6;
+}
+
+/* NAVBAR */
+
+.navbar{
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+padding:15px 0;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+}
+
+.nav-flex{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+height:45px;
+}
+
+.nav-links a{
+text-decoration:none;
+margin-left:20px;
+color:#1c2b4a;
+font-weight:500;
+}
+
+/* HERO */
+
+.hero{
+background:url("https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260304_153553354_iOS.jpg") center/cover no-repeat;
+min-height:75vh;
+display:flex;
+align-items:center;
+color:white;
+position:relative;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.55);
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+max-width:600px;
+}
+
+.hero h1{
+font-size:clamp(2rem,4vw,3rem);
+margin-bottom:10px;
+}
+
+.motto {
+            font-size: 1.2rem;
+            margin: 15px 0 25px 0;
+            font-style: italic;
+            border-left: 3px solid #d6a84f;
+            padding-left: 12px;
+        }
+
+.btn-primary{
+display:inline-block;
+background:#d6a84f;
+padding:12px 28px;
+border-radius:30px;
+color:white;
+text-decoration:none;
+font-weight:600;
+margin-top:10px;
+}
+
+/* ABOUT */
+
+.about {
+            background: #f4f4f4;
+            padding: 60px 0;
+        }
+
+        .about-grid{
+display:flex;
+flex-direction:column;
+gap:40px;
+align-items:center;
+text-align:center;
+max-width:900px;
+margin:auto;
+}
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-image img {
+            border-radius: 12px;
+        }
+        .about-gallery{
+perspective:1200px;
+height:380px;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.carousel{
+position:relative;
+width:260px;
+height:260px;
+transform-style:preserve-3d;
+animation:rotate 45s infinite linear;
+}
+
+.carousel img{
+position:absolute;
+width:260px;
+height:260px;
+object-fit:cover;
+border-radius:12px;
+box-shadow:0 15px 35px rgba(0,0,0,0.25);
+}
+
+/* Correct spacing for 11 images */
+
+.carousel img:nth-child(1){transform:rotateY(0deg) translateZ(440px);}
+.carousel img:nth-child(2){transform:rotateY(32.73deg) translateZ(442px);}
+.carousel img:nth-child(3){transform:rotateY(65.46deg) translateZ(442px);}
+.carousel img:nth-child(4){transform:rotateY(98.19deg) translateZ(442px);}
+.carousel img:nth-child(5){transform:rotateY(130.92deg) translateZ(442px);}
+.carousel img:nth-child(6){transform:rotateY(163.65deg) translateZ(442px);}
+.carousel img:nth-child(7){transform:rotateY(196.38deg) translateZ(442px);}
+.carousel img:nth-child(8){transform:rotateY(229.11deg) translateZ(442px);}
+.carousel img:nth-child(9){transform:rotateY(261.84deg) translateZ(442px);}
+.carousel img:nth-child(10){transform:rotateY(294.57deg) translateZ(442px);}
+.carousel img:nth-child(11){transform:rotateY(327.30deg) translateZ(442px);}
+
+@keyframes rotate{
+from{transform:rotateY(0deg);}
+to{transform:rotateY(360deg);}
+}
+
+
+/* pause when hovered */
+
+.carousel:hover{
+animation-play-state:paused;
+}
+
+/* FORM SECTION */
+
+.admission{
+padding:80px 0;
+}
+
+.admission-card{
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.form-title{
+text-align:center;
+margin-bottom:30px;
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+label{
+font-weight:500;
+font-size:14px;
+}
+
+input, select, textarea{
+
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #ddd;
+margin-top:5px;
+transition:0.3s;
+font-size:14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+outline:none;
+border-color:#d6a84f;
+box-shadow:0 0 0 2px rgba(214,168,79,0.2);
+}
+
+textarea{
+grid-column:1/-1;
+}
+
+.submit-area{
+text-align:center;
+margin-top:30px;
+}
+
+button{
+background:#1c2b4a;
+color:white;
+padding:14px 35px;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#101c34;
+}
+
+/* FEATURES */
+
+.features {
+            background: #f4f4f4;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            padding: 20px;
+        }
+
+        .icon-circle {
+            background: #d6a84f;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            font-size: 28px;
+        }
+/* MOBILE */
+
+@media(max-width:768px){
+
+.about-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+/*CONTACT*/
+
+/* CONTACT SECTION */
+
+.contact{
+padding:70px 0;
+background:white;
+text-align:center;
+}
+
+.contact-sub{
+margin-top:10px;
+color:#555;
+}
+
+.contact-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+margin-top:40px;
+}
+
+.contact-card{
+background:#f8f9fb;
+padding:35px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+transition:0.3s;
+}
+
+.contact-card:hover{
+transform:translateY(-6px);
+}
+
+.contact-icon{
+font-size:28px;
+color:#d6a84f;
+margin-bottom:15px;
+}
+
+.contact-card a{
+text-decoration:none;
+color:#1c2b4a;
+font-weight:500;
+}
+
+.contact-card a:hover{
+text-decoration:underline;
+}
+
+/*FOOTER*/
+
+/* FOOTER */
+
+.footer{
+background:#1c2b4a;
+color:white;
+padding-top:50px;
+margin-top:60px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:40px;
+padding-bottom:40px;
+}
+
+.footer-logo{
+width:70px;
+margin-bottom:15px;
+}
+
+.footer h3{
+margin-bottom:15px;
+}
+
+.footer-links a{
+display:block;
+text-decoration:none;
+color:#ddd;
+margin-bottom:8px;
+transition:0.2s;
+}
+
+.footer-links a:hover{
+color:#d6a84f;
+}
+
+.footer-contact p{
+margin-bottom:10px;
+}
+
+.footer-contact i{
+margin-right:8px;
+color:#d6a84f;
+}
+
+.footer-bottom{
+text-align:center;
+padding:20px;
+border-top:1px solid rgba(255,255,255,0.15);
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+<div class="container nav-flex">
+
+<img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260304_153523801_iOS-removebg-preview.png"
+class="logo">
+
+<div class="nav-links">
+<a href="#">Home</a>
+<a href="#about">About</a>
+<a href="#admission">Admission</a>
+</div>
+
+</div>
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="container hero-content">
+
+<h1>Christ's Perfection Academy</h1>
+
+<p class="motto">Solid foundation for moral and academic excellence</p>
+
+<a href="#admission" class="btn-primary">Apply for Admission</a>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+    <div class="container about-grid">
+        <div class="about-text">
+            <h2>Welcome to Christ’s Perfection Academy</h2>
+            <p>At CPA, we nurture young minds to achieve academic excellence and strong moral values.</p>
+            <p>Our experienced teachers and well-structured curriculum ensure every child reaches their full
+                potential.</p>
+        </div>
+        <div class="about-gallery">
+
+        <div class="carousel">
+
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260304_153532822_iOS.jpg">
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260304_153542302_iOS.jpg">
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260304_153553354_iOS.jpg">
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260309_191410556_iOS.jpg">
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260309_191424381_iOS.jpg">
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260309_191458914_iOS.jpg">
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260309_191512840_iOS.jpg">
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260309_191517683_iOS.jpg">
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260309_191525569_iOS%201.jpg">
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260309_191403458_iOS.jpg">
+        <img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260304_153532822_iOS.jpg">
+
+        </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ADMISSION FORM -->
+
+<section class="admission" id="admission">
+
+<div class="container">
+
+<div class="admission-card">
+
+<h2 class="form-title">Student Admission Application</h2>
+
+<form>
+
+<div class="form-grid">
+
+<!-- Student Info -->
+
+<div>
+<label>Student's Surname</label>
+<input type="text" placeholder="Enter Surname" required>
+</div>
+
+<div>
+<label>Student's other names </label>
+<input type="text" placeholder="Enter other names" required>
+</div>
+
+<div>
+<label>Date of Birth</label>
+<input type="date" required>
+</div>
+
+<div>
+<label>Gender</label>
+<select required>
+<option value="">Select Gender</option>
+<option>Male</option>
+<option>Female</option>
+<option>Prefer not to say</option>
+</select>
+</div>
+
+<div>
+<label>Class Applying For</label>
+<select required>
+<option value="">Select Class</option>
+<option>JSS1</option>
+<option>JSS2</option>
+<option>JSS3</option>
+<option>SS1</option>
+<option>SS2</option>
+<option>SS3</option>
+</select>
+</div>
+
+<div>
+<label>Previous School</label>
+<input type="text" placeholder="Enter previous school name">
+</div>
+
+<!-- Parent Info -->
+
+<div>
+<label>Parent's Name</label>
+<input type="text" placeholder="Enter parents name" required>
+</div>
+
+<div>
+<label>Parent's Email</label>
+<input type="email" placeholder="Enter parent's email">
+</div>
+
+<div>
+<label>Parent's Phone Number</label>
+<input type="tel" placeholder="Enter parent's phone number" required>
+</div>
+
+<div>
+<label>Home Address</label>
+<input type="text" placeholder="Enter home address">
+</div>
+
+<textarea placeholder="Special Needs / Additional Notes"></textarea>
+
+</div>
+
+<div class="submit-area">
+<button type="submit">Submit Application</button>
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+<!--CONTACT-->
+
+<section class="contact" id="contact">
+
+<div class="container">
+
+<h2>Contact the School</h2>
+<p class="contact-sub">For enquiries about admission or school information, please reach out to us.</p>
+
+<div class="contact-grid">
+
+<div class="contact-card">
+
+<div class="contact-icon">
+<i class="fa-solid fa-envelope"></i>
+</div>
+
+<h3>Email Us</h3>
+
+<p>
+<a href="mailto:info@cpacademy.edu">
+info@cpacademy.edu
+</a>
+</p>
+
+</div>
+
+
+<div class="contact-card">
+
+<div class="contact-icon">
+<i class="fa-solid fa-phone"></i>
+</div>
+
+<h3>Call the School</h3>
+
+<p>
+<a href="tel:+234000000000">
++234 000 000 0000
+</a>
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="features">
+        <div class="container">
+            <h2>Why Choose Christ’s Perfection Academy?</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon-circle"><i class="fa-solid fa-chalkboard-user"></i></div>
+                    <p>Experienced, caring teachers</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon-circle"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <p>Strong academic foundation & character building</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon-circle"><i class="fa-solid fa-laptop"></i></div>
+                    <p>Modern learning environment and facilities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<footer class="footer">
+
+<div class="container footer-grid">
+
+<div class="footer-about">
+
+<img src="https://raw.githubusercontent.com/Tunnox/CPA-IMAGES/main/20260304_153523801_iOS-removebg-preview.png" class="footer-logo">
+
+<p>
+Christ’s Perfection Academy is committed to raising students with strong
+academic excellence, discipline, and moral values for a brighter future.
+</p>
+
+</div>
+
+<div class="footer-links">
+
+<h3>Quick Links</h3>
+
+<a href="#">Home</a>
+<a href="#about">About</a>
+<a href="#admission">Admission</a>
+<a href="#contact">Contact</a>
+
+</div>
+
+<div class="footer-contact">
+
+<h3>Contact</h3>
+
+<p><i class="fa-solid fa-envelope"></i> info@cpacademy.edu</p>
+<p><i class="fa-solid fa-phone"></i> +234 000 000 0000</p>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+
+<p>
+© 2026 Christ’s Perfection Academy. All Rights Reserved.
+</p>
+
+</div>
+
+</footer>
+
+</body>
+</html>
