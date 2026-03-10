@@ -333,24 +333,28 @@ academic excellence, discipline, and moral values for a brighter future.
 const scriptURL = 'https://script.google.com/macros/s/AKfycbwP1u2FijKNqkHkpcd-mVaYnPbkVy4rk1G7eCx4_P-mrZMwbaBOcr6rr9uUHCpJ7ous/exec';
 
 document.getElementById("admissionForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries()); // Convert form to JSON
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData.entries());
 
-    fetch(scriptURL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.text())
-    .then(() => {
-        document.getElementById("successMessage").style.display = "block";
-        document.getElementById("admissionForm").reset();
-    })
-    .catch(() => {
-        alert("Submission failed. Please try again.");
-    });
+  fetch(scriptURL, {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(res => {
+    if(res.status === "success"){
+      document.getElementById("successMessage").style.display = "block";
+      document.getElementById("admissionForm").reset();
+    } else {
+      alert(res.message || "Submission failed. Please try again.");
+    }
+  })
+  .catch(() => {
+    alert("Submission failed. Please try again.");
+  });
 });
 </script>
 
