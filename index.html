@@ -711,10 +711,12 @@ document.getElementById("admissionForm").addEventListener("submit", function(e) 
     e.preventDefault();
 
     const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
 
     fetch(scriptURL, {
         method: "POST",
-        body: new URLSearchParams(formData)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
     })
     .then(() => {
         document.getElementById("successMessage").style.display = "block";
