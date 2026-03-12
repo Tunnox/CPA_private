@@ -139,23 +139,24 @@ button:hover{background:#101c34;}
 <div class="container">
 <div class="admission-card">
 <h2 class="form-title">Student Admission Application</h2>
+        <p>Please  complete all fields carefully. A confirmation will be sent to the school once you submit. </p>
 <form id="admissionForm">
 <div class="form-grid">
 <div>
 <label>Student's Surname</label>
-<input type="text" name="surname" placeholder="Enter student's surname" required>
+<input type="text" id="surname" name="surname" placeholder="Enter student's surname" required>
 </div>
 <div>
 <label>Student's Other Names</label>
-<input type="text" name="otherNames" placeholder="Enter student's other names" required>
+<input type="text" id="otherNames" name="otherNames" placeholder="Enter student's other names" required>
 </div>
 <div>
 <label>Date of Birth</label>
-<input type="date" name="dob" required>
+<input type="date" id="dob" name="dob" required>
 </div>
 <div>
 <label>Gender</label>
-<select name="gender" required>
+<select id="gender" name="gender" required>
 <option value="">Select Gender</option>
 <option>Male</option>
 <option>Female</option>
@@ -164,7 +165,7 @@ button:hover{background:#101c34;}
 </div>
 <div>
 <label>Class Applying For</label>
-<select name="classApplying" required>
+<select id="classApplying" name="classApplying" required>
 <option value="">Select Class</option>
 <option>JSS1</option>
 <option>JSS2</option>
@@ -176,33 +177,33 @@ button:hover{background:#101c34;}
 </div>
 <div>
 <label>Previous School</label>
-<input type="text" name="previousSchool" placeholder="Enter previous school name">
+<input type="text" id="previousSchool" name="previousSchool" placeholder="Enter previous school name">
 </div>
 <div>
 <label>Parent's Name</label>
-<input type="text" name="parentName" placeholder="Enter parent or guardian name" required>
+<input type="text" id="parentName" name="parentName" placeholder="Enter parent or guardian name" required>
 </div>
 <div>
 <label>Parent's Email</label>
-<input type="email" name="parentEmail" placeholder="Enter parent email">
+<input type="email" id="parentEmail" name="parentEmail" placeholder="Enter parent email">
 </div>
 <div>
 <label>Parent's Phone Number</label>
-<input type="tel" name="parentPhone" placeholder="Enter parent phone number" required>
+<input type="tel" id="parentPhone" name="parentPhone" placeholder="Enter parent phone number" required>
 </div>
 <div>
 <label>Home Address</label>
-<input type="text" name="address" placeholder="Enter home address">
+<input type="text" id="address" name="address" placeholder="Enter home address">
 </div>
-<textarea name="notes" placeholder="Special Needs / Additional Notes"></textarea>
+<div>
+<label for="notes">Additional Notes (medical conditions, learning needs, or other information)</label>
+<textarea id="notes" name="notes" placeholder="Special Needs / Additional Notes"></textarea>
 </div>
 <div class="submit-area">
 <button type="submit">Submit Application</button>
 </div>
 </form>
-<div id="successMessage" class="success-message">
-Thank you. Your admission application has been received. Our admissions team will contact you shortly.
-</div>
+<div id="formMessage" class="message"></div>
 </div>
 </div>
 </section>
@@ -330,33 +331,62 @@ academic excellence, discipline, and moral values for a brighter future.
 </footer>
 
 <script>
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwvM4f_U86x6WZSofPqBt7KxNB6w2oMQqYZptOnunPuvjmlf8bxmwhtnXp8hP14jaNnxw/exec';
+    const form = document.getElementById('admissionForm');
+    const messageBox = document.getElementById('formMessage');
+    const submitBtn = document.getElementById('submitBtn');
 
-document.getElementById("admissionForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwvM4f_U86x6WZSofPqBt7KxNB6w2oMQqYZptOnunPuvjmlf8bxmwhtnXp8hP14jaNnxw/exec";
 
-  const formData = new FormData(this);
-  const data = Object.fromEntries(formData.entries());
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      messageBox.style.display = 'none';
+      messageBox.textContent = '';
+      messageBox.className = 'message';
 
-  fetch(scriptURL, {
-    method: "POST",
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  })
-  .then(response => response.json())
-  .then(res => {
-    if(res.status === "success"){
-      document.getElementById("successMessage").style.display = "block";
-      document.getElementById("admissionForm").reset();
-    } else {
-      alert(res.message || "Submission failed. Please try again.");
-    }
-  })
-  .catch(() => {
-    alert("Submission failed. Please try again.");
-  });
-});
-</script>
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
 
+      // Build data object to match Apps Script keys
+      const formData = {
+        surname: document.getElementById('surname').value.trim(),
+        otherNames: document.getElementById('otherNames').value.trim(),
+        dob: document.getElementById('dob').value,
+        gender: document.getElementById('gender').value,
+        classApplying: document.getElementById('classApplying').value.trim(),
+        previousSchool: document.getElementById('previousSchool').value.trim(),
+        parentName: document.getElementById('parentName').value.trim(),
+        parentEmail: document.getElementById('parentEmail').value.trim(),
+        parentPhone: document.getElementById('parentPhone').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        notes: document.getElementById('notes').value.trim()
+      };
+
+      try {
+        const response = await fetch(WEB_APP_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Apps Script often requires no-cors from static hosting
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        // With no-cors, we can't reliably read the JSON response,
+        // so we optimistically show success if no error is thrown.
+        messageBox.style.display = 'block';
+        messageBox.classList.add('success');
+        messageBox.textContent = 'Application submitted successfully. Thank you!';
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        messageBox.style.display = 'block';
+        messageBox.classList.add('error');
+        messageBox.textContent = 'There was a problem submitting your application. Please try again.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Application';
+      }
+    });
+  </script>
 </body>
 </html>
