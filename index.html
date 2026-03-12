@@ -348,28 +348,28 @@ academic excellence, discipline, and moral values for a brighter future.
 
       // Build data object to match Apps Script keys
       const formData = {
-        surname: document.getElementById('surname').value.trim(),
-        otherNames: document.getElementById('otherNames').value.trim(),
-        dob: document.getElementById('dob').value,
-        gender: document.getElementById('gender').value,
-        classApplying: document.getElementById('classApplying').value.trim(),
-        previousSchool: document.getElementById('previousSchool').value.trim(),
-        parentName: document.getElementById('parentName').value.trim(),
-        parentEmail: document.getElementById('parentEmail').value.trim(),
-        parentPhone: document.getElementById('parentPhone').value.trim(),
-        address: document.getElementById('address').value.trim(),
-        notes: document.getElementById('notes').value.trim()
-      };
-
-      try {
+          surname: document.getElementById('surname').value,
+          otherNames: document.getElementById('otherNames').value,
+          dob: document.getElementById('dob').value,
+          gender: document.getElementById('gender').value,
+          classApplying: document.getElementById('classApplying').value,
+          previousSchool: document.getElementById('previousSchool').value,
+          parentName: document.getElementById('parentName').value,
+          parentEmail: document.getElementById('parentEmail').value,
+          parentPhone: document.getElementById('parentPhone').value,
+          address: document.getElementById('address').value,
+          notes: document.getElementById('notes').value
+        };
+        
         const response = await fetch(WEB_APP_URL, {
-          method: 'POST',
-          mode: 'no-cors', // Apps Script often requires no-cors from static hosting
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/x-www-form-urlencoded"
           },
-          body: JSON.stringify(formData)
+          body: new URLSearchParams(formData)
         });
+
+
 
         // With no-cors, we can't reliably read the JSON response,
         // so we optimistically show success if no error is thrown.
