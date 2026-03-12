@@ -82,6 +82,26 @@ button:hover{background:#101c34;}
 .footer-contact i{margin-right:8px;color:#d6a84f;}
 .footer-bottom{text-align:center;padding:20px;border-top:1px solid rgba(255,255,255,0.15);font-size:14px;}
 .success-message{display:none;background:#e6f7e6;color:#1c7c1c;padding:15px;margin-top:20px;border-radius:6px;font-weight:bold;text-align:center;}
+        .message{
+display:none;
+padding:15px;
+margin-top:20px;
+border-radius:6px;
+font-weight:bold;
+text-align:center;
+}
+
+.success{
+background:#e6f7e6;
+color:#1c7c1c;
+display:block;
+}
+
+.error{
+background:#fde8e8;
+color:#a00000;
+display:block;
+}
 </style>
 </head>
 
@@ -189,7 +209,7 @@ button:hover{background:#101c34;}
 </div>
 <div>
 <label>Parent's Phone Number</label>
-<input type="tel" id="parentPhone" name="parentPhone" placeholder="Enter parent phone number" required>
+<input type="tel" pattern="[0-9+ ]{7,15}" id="parentPhone" name="parentPhone" placeholder="Enter parent phone number" required>
 </div>
 <div>
 <label>Home Address</label>
@@ -335,58 +355,59 @@ academic excellence, discipline, and moral values for a brighter future.
     const messageBox = document.getElementById('formMessage');
     const submitBtn = document.getElementById('submitBtn');
 
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwZ_1Urwc-62SSAg7UqNwF0CyKVDSmC2GcBI9IGShyy2VdfYzqY3acYjAs9mlrNgQ/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz0d6NzAAXnqteggys-p1tZk9EFqtjR9u6tNHbo686QbrHjycg6kQfm5tmRuQQpYF4O2w/exec";
 
     form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      messageBox.style.display = 'none';
-      messageBox.textContent = '';
-      messageBox.className = 'message';
+  e.preventDefault();
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Submitting...';
+  try {
 
-      // Build data object to match Apps Script keys
-      const formData = {
-          surname: document.getElementById('surname').value,
-          otherNames: document.getElementById('otherNames').value,
-          dob: document.getElementById('dob').value,
-          gender: document.getElementById('gender').value,
-          classApplying: document.getElementById('classApplying').value,
-          previousSchool: document.getElementById('previousSchool').value,
-          parentName: document.getElementById('parentName').value,
-          parentEmail: document.getElementById('parentEmail').value,
-          parentPhone: document.getElementById('parentPhone').value,
-          address: document.getElementById('address').value,
-          notes: document.getElementById('notes').value
-        };
-        
-        const response = await fetch(WEB_APP_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body: new URLSearchParams(formData)
-        });
+    messageBox.style.display = 'none';
+    messageBox.textContent = '';
+    messageBox.className = 'message';
 
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
 
+    const formData = {
+      surname: document.getElementById('surname').value,
+      otherNames: document.getElementById('otherNames').value,
+      dob: document.getElementById('dob').value,
+      gender: document.getElementById('gender').value,
+      classApplying: document.getElementById('classApplying').value,
+      previousSchool: document.getElementById('previousSchool').value,
+      parentName: document.getElementById('parentName').value,
+      parentEmail: document.getElementById('parentEmail').value,
+      parentPhone: document.getElementById('parentPhone').value,
+      address: document.getElementById('address').value,
+      notes: document.getElementById('notes').value
+    };
 
-        // With no-cors, we can't reliably read the JSON response,
-        // so we optimistically show success if no error is thrown.
-        messageBox.style.display = 'block';
-        messageBox.classList.add('success');
-        messageBox.textContent = 'Application submitted successfully. Thank you!';
-        form.reset();
-      } catch (err) {
-        console.error(err);
-        messageBox.style.display = 'block';
-        messageBox.classList.add('error');
-        messageBox.textContent = 'There was a problem submitting your application. Please try again.';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Application';
-      }
+    const response = await fetch(WEB_APP_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams(formData)
     });
+
+    messageBox.classList.add('success');
+    messageBox.textContent = 'Application submitted successfully. Thank you!';
+    form.reset();
+
+  } catch (err) {
+
+    console.error(err);
+    messageBox.classList.add('error');
+    messageBox.textContent = 'There was a problem submitting your application. Please try again.';
+
+  } finally {
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Application';
+
+  }
+});
   </script>
 </body>
 </html>
