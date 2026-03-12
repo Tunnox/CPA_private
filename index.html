@@ -352,22 +352,22 @@ academic excellence, discipline, and moral values for a brighter future.
 
 <script>
     const form = document.getElementById('admissionForm');
-    const messageBox = document.getElementById('formMessage');
-    const submitBtn = document.getElementById('submitBtn');
+const messageBox = document.getElementById('formMessage');
+const submitBtn = document.getElementById('submitBtn');
 
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzv68XDCRuMQfT3HJMrm3oDNFC4uUwtlLvqROS7z8pcHxUWNpOnzvy526DjJOBM7-MnVA/exec";
+const WEB_APP_URL = "YOUR_WEB_APP_URL";
 
-    form.addEventListener('submit', async (e) => {
+form.addEventListener('submit', async (e) => {
+
   e.preventDefault();
 
+  messageBox.style.display = 'none';
+  messageBox.textContent = '';
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+
   try {
-
-    messageBox.style.display = 'none';
-    messageBox.textContent = '';
-    messageBox.className = 'message';
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting...';
 
     const formData = {
       surname: document.getElementById('surname').value,
@@ -383,30 +383,32 @@ academic excellence, discipline, and moral values for a brighter future.
       notes: document.getElementById('notes').value
     };
 
-    const response = await fetch(WEB_APP_URL, {
+    await fetch(WEB_APP_URL, {
       method: "POST",
+      mode: "no-cors",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       body: new URLSearchParams(formData)
     });
 
+    messageBox.style.display = 'block';
     messageBox.classList.add('success');
-    messageBox.textContent = 'Application submitted successfully. Thank you!';
+    messageBox.textContent = "Application submitted successfully.";
     form.reset();
 
-  } catch (err) {
+  } catch (error) {
 
-    console.error(err);
+    console.error(error);
+
+    messageBox.style.display = 'block';
     messageBox.classList.add('error');
-    messageBox.textContent = 'There was a problem submitting your application. Please try again.';
-
-  } finally {
-
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit Application';
+    messageBox.textContent = "Submission failed. Please try again.";
 
   }
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Submit Application";
 });
   </script>
 </body>
